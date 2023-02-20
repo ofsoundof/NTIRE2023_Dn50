@@ -3,7 +3,6 @@
 This repository shows how to add noise to synthesize the noisy image. It also shows how you can save an image.
 
 ```python
-import os.path as osp
 import numpy as np
 import imageio
 
@@ -29,10 +28,21 @@ def save_image(image, path):
     image = np.round(np.clip(image, 0, 255)).astype(np.uint8)
     imageio.imwrite(path, image)
 
+    
+def crop_image(image, s=8):
+    h, w, c = image.shape
+    image = image[:h - h % s, :w - w % s, :]
+    return image
+
 
 image_name = "example.png"
 
 img = imageio.imread(image_name)
+
+# The provided noisy validation images in the following link are cropped such that the width and height are multiples of 8.
+# https://drive.google.com/file/d/1iYurwSVBUxoN6fQwUGP-UbZkTZkippGx/view?usp=share_link
+# You can achieve that using the function crop_image.
+img = crop_image(img)
 
 # This image is used as the noisy image for training.
 img_noise = add_noise(img, sigma=50)

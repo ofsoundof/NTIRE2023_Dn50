@@ -21,7 +21,16 @@ def select_model(args, device):
         name, data_range = f"{model_id:02}_RFDN_baseline", 1.0
         model_path = os.path.join('model_zoo', 'team00_sgn.pth')
         model = SGNDN3()
-        model.load_state_dict(torch.load(model_path), strict=True)
+
+        state_dict = torch.load(model_path)["state_dict"]
+        state_dict.pop("current_val_metric")
+        state_dict.pop("best_val_metric")
+        state_dict.pop("best_iter")
+        new_state_dict = {}
+        for k, v in state_dict.items():
+            if k.find("model.") >= 0:
+                new_state_dict[k.replace("model.", "")] = v
+        model.load_state_dict(new_state_dict, strict=True)
     else:
         raise NotImplementedError(f"Model {model_id} is not implemented.")
 

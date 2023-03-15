@@ -124,14 +124,14 @@ def run(model, model_name, data_range, tile, logger, device, args, mode="test"):
     end = torch.cuda.Event(enable_timing=True)
 
     for i, (img_noisy, img_hr) in enumerate(data_path):
-        print(img_noisy)
-        print(img_hr)
+        # print(img_noisy)
+        # print(img_hr)
         # --------------------------------
         # (1) img_noisy
         # --------------------------------
         img_name, ext = os.path.splitext(os.path.basename(img_hr))
         img_noisy = util.imread_uint(img_noisy, n_channels=3)
-        print(img_noisy.shape)
+        # print(img_noisy.shape)
         img_noisy = util.uint2tensor4(img_noisy, data_range)
         img_noisy = img_noisy.to(device)
 
@@ -156,7 +156,7 @@ def run(model, model_name, data_range, tile, logger, device, args, mode="test"):
         # PSNR and SSIM
         # --------------------------------
 
-        print(img_dn.shape, img_hr.shape)
+        # print(img_dn.shape, img_hr.shape)
         psnr = util.calculate_psnr(img_dn, img_hr, border=border)
         results[f"{mode}_psnr"].append(psnr)
 
@@ -174,7 +174,7 @@ def run(model, model_name, data_range, tile, logger, device, args, mode="test"):
         #     ssim_y = util.calculate_ssim(img_dn_y, img_hr_y, border=border)
         #     results[f"{mode}_psnr_y"].append(psnr_y)
         #     results[f"{mode}_ssim_y"].append(ssim_y)
-        print(os.path.join(save_path, img_name+ext))
+        # print(os.path.join(save_path, img_name+ext))
         util.imsave(img_dn, os.path.join(save_path, img_name+ext))
 
     results[f"{mode}_memory"] = torch.cuda.max_memory_allocated(torch.cuda.current_device()) / 1024 ** 2
@@ -263,7 +263,7 @@ def main(args):
         fmt = "{:20s}\t{:10s}\t{:14s}\t{:10s}\t{:10s}\t{:8s}\t{:8s}\t{:8s}\n"
         s = fmt.format("Model", "Val PSNR", "Val Time [ms]", "Params [M]", "FLOPs [G]", "Acts [M]", "Mem [M]", "Conv")
     for k, v in results.items():
-        print(v.keys())
+        # print(v.keys())
         if args.hybrid_test:
             val_psnr = f"{v['hybrid_test_ave_psnr']:2.2f}"
             val_time = f"{v['hybrid_test_ave_runtime']:3.2f}"

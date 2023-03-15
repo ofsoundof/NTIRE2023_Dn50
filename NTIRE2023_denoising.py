@@ -30,17 +30,18 @@ def crop_image(image, s=8):
     return image
 
 
-image_name = "example.png"
+if __name__ == "__main__":
+    image_name = "example.png"
 
-img = imageio.imread(image_name)
+    img = imageio.imread(image_name)
 
-# The provided noisy validation images in the following link are cropped such that the width and height are multiples of 8.
-# https://drive.google.com/file/d/1iYurwSVBUxoN6fQwUGP-UbZkTZkippGx/view?usp=share_link
-# You can achieve that using the function crop_image.
-img = crop_image(img)
+    # The provided noisy validation images in the following link are cropped such that the width and height are multiples of 8.
+    # https://drive.google.com/file/d/1iYurwSVBUxoN6fQwUGP-UbZkTZkippGx/view?usp=share_link
+    # You can achieve that using the function crop_image.
+    img = crop_image(img)
 
-# This image is used as the noisy image for training.
-img_noise = add_noise(img, sigma=50)
+    # This image is used as the noisy image for training.
+    img_noise = add_noise(img, sigma=50)
 
-# This function ensures that the image is properly clipped and rounded before saving.
-save_image(img_noise, "example_saved.png")
+    # This function ensures that the image is properly clipped and rounded before saving.
+    save_image(img_noise, "example_saved.png")

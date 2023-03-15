@@ -55,7 +55,7 @@ def select_dataset(data_dir, mode):
     elif mode == "valid":
         path = [
             (
-                os.path.join(data_dir, f"DIV2K_valid_noise50/{i:04}x4.png"),
+                os.path.join(data_dir, f"DIV2K_valid_noise50/{i:04}.png"),
                 os.path.join(data_dir, f"DIV2K_valid_HR/{i:04}.png")
             ) for i in range(801, 901)
         ]

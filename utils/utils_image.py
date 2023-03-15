@@ -119,7 +119,7 @@ def read_img(path):
 # ----------------------------------------
 # get uint8 image of size HxWxn_channles (RGB)
 # ----------------------------------------
-def imread_uint(path, n_channels=3):
+def imread_uint(path, n_channels=3, crop=True):
     #  input: path
     # output: HxWx3(RGB or GGG), or HxWx1 (G)
     if n_channels == 1:
@@ -131,6 +131,8 @@ def imread_uint(path, n_channels=3):
             img = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)  # GGG
         else:
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  # RGB
+    if crop:
+        img = crop_image(img)
     return img
 
 

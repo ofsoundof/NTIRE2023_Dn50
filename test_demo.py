@@ -124,7 +124,8 @@ def run(model, model_name, data_range, tile, logger, device, args, mode="test"):
     end = torch.cuda.Event(enable_timing=True)
 
     for i, (img_noisy, img_hr) in enumerate(data_path):
-
+        print(img_noisy)
+        print(img_hr)
         # --------------------------------
         # (1) img_noisy
         # --------------------------------

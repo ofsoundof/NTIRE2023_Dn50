@@ -71,7 +71,7 @@ def select_dataset(data_dir, mode):
     return path
 
 
-def forward(img_lq, model, tile=None, tile_overlap=32, scale=4):
+def forward(img_lq, model, tile=None, tile_overlap=32, scale=1):
     if tile is None:
         # test the image as a whole
         output = model(img_lq)
